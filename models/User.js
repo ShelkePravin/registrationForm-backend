@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Contact number is required'],
     trim: true,
-    match: [!/^[6-9]\d{9}$/, 'Please enter a valid contact number']
+    match: [/^[0-9+\-\s()]{10,15}$/, 'Please enter a valid contact number']
   },
   address: {
     type: String,

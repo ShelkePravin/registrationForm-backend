@@ -6,21 +6,24 @@ const User = require('../models/User');
 // Validation middleware
 const validateUser = [
   body('name')
-    .trim()
-    .notEmpty().withMessage('Name is required')
-    .isLength({ min: 2, max: 50 }).withMessage('Name must be between 2 and 50 characters')
-    .matches(/^[a-zA-Z\s]+$/).withMessage('Name can only contain letters and spaces'),
+    .exists().withMessage('Name is required')
+  .isString()
+  .trim()
+  .isLength({ min: 2, max: 50 })
+  .matches(/^[a-zA-Z\s]+$/),
   
   body('email')
-    .trim()
-    .notEmpty().withMessage('Email is required')
-    .isEmail().withMessage('Please enter a valid email address')
-    .normalizeEmail(),
+  .trim()
+  .notEmpty().withMessage('Email is required')
+  .isEmail().withMessage('Please enter a valid email')
+  .normalizeEmail(),
   
-  body('contactNo')
-    .trim()
-    .notEmpty().withMessage('Contact number is required')
-    .matches(!/^[6-9]\d{9}$/).withMessage('Please enter a valid contact number (10-15 digits)'),
+ body('contactNo')
+  .trim()
+  .notEmpty().withMessage('Contact number is required')
+  .isString().withMessage('Contact number must be a string')
+  .matches(/^[0-9+\-\s()]{10,15}$/)
+  .withMessage('Please enter a valid contact number (10–15 digits)'),
   
   body('address')
     .trim()
